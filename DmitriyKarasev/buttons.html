@@ -1,0 +1,62 @@
+<!--Two buttons are used on this page
+1. The first one to get the hardcoded json from the source at https://jsonplaceholder.typicode.com/posts/1
+2. The second one to get the json whith data we're interested to receive 
+First response is outputeed "as is". The second is alsp printed "as is"-->
+<html>
+ 
+<head>
+  <meta http-equiv="Content-Type" charset="UTF-8">
+</head>
+ 
+<body>
+  <button id="addElementSimple" onclick="New1()">Add element from the web</button>
+  <ul id="list1">
+     <h3> <li>Adding elements one by one with every button click</li> </h3>
+  </ul>
+  
+  <button id="addElementResponsive" onclick="New2()">Add element from the web/modified</button>
+  <ul id="list2">
+      <h3> <li>Adding elements one by one with every button click</li> </h3>
+  </ul> 
+ 
+  <script>
+    function New1() {
+      
+      fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then((response) => response.json())
+      .then((json) => {
+          let obj = JSON.stringify(json);
+          let ul = document.getElementById("list1");
+          let li = document.createElement("li");
+          li.appendChild(document.createTextNode(obj));
+          ul.append(li);
+         }
+      )    
+    }
+ 
+    function New2() {
+      
+      fetch('https://jsonplaceholder.typicode.com/posts/', {
+        method: 'POST',
+        body: JSON.stringify({
+        time: new Date()
+            }),
+        headers: {
+             'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+          let obj = JSON.stringify(json);
+          let ul = document.getElementById("list2");
+          let li = document.createElement("li");
+          li.appendChild(document.createTextNode(obj));
+          ul.append(li);
+         }
+      )    
+    }
+ 
+  </script>
+</body>
+ 
+</html>
